@@ -26,42 +26,50 @@ const KeyBoardKey = styled.button`
 const KeyBoardBigKey = styled(KeyBoardKey)`
   width: 60px;
 `
-const KeyBoard = () => {
+const KeyBoard = ({ enterWord, submitGuess, deleteWord }) => {
   return (
     <KeyBoardWrap>
       <KeyBoardRow>
-        <KeyBoardKey>Q</KeyBoardKey>
-        <KeyBoardKey>W</KeyBoardKey>
-        <KeyBoardKey>E</KeyBoardKey>
-        <KeyBoardKey>R</KeyBoardKey>
-        <KeyBoardKey>T</KeyBoardKey>
-        <KeyBoardKey>Y</KeyBoardKey>
-        <KeyBoardKey>U</KeyBoardKey>
-        <KeyBoardKey>I</KeyBoardKey>
-        <KeyBoardKey>O</KeyBoardKey>
-        <KeyBoardKey>P</KeyBoardKey>
+        <KeyBoardKey
+          data-value={"q"}
+          onClick={() => {
+            enterWord("q")
+            console.log("click")
+          }}
+        >
+          Q
+        </KeyBoardKey>
+        <KeyBoardKey data-value={"w"}>W</KeyBoardKey>
+        <KeyBoardKey data-value={"e"}>E</KeyBoardKey>
+        <KeyBoardKey data-value={"r"}>R</KeyBoardKey>
+        <KeyBoardKey data-value={"t"}>T</KeyBoardKey>
+        <KeyBoardKey data-value={"y"}>Y</KeyBoardKey>
+        <KeyBoardKey data-value={"u"}>U</KeyBoardKey>
+        <KeyBoardKey data-value={"i"}>I</KeyBoardKey>
+        <KeyBoardKey data-value={"o"}>O</KeyBoardKey>
+        <KeyBoardKey data-value={"p"}>P</KeyBoardKey>
       </KeyBoardRow>
       <KeyBoardRow>
-        <KeyBoardKey>A</KeyBoardKey>
-        <KeyBoardKey>S</KeyBoardKey>
-        <KeyBoardKey>D</KeyBoardKey>
-        <KeyBoardKey>F</KeyBoardKey>
-        <KeyBoardKey>G</KeyBoardKey>
-        <KeyBoardKey>H</KeyBoardKey>
-        <KeyBoardKey>J</KeyBoardKey>
-        <KeyBoardKey>K</KeyBoardKey>
-        <KeyBoardKey>L</KeyBoardKey>
+        <KeyBoardKey data-value={"a"}>A</KeyBoardKey>
+        <KeyBoardKey data-value={"s"}>S</KeyBoardKey>
+        <KeyBoardKey data-value={"d"}>D</KeyBoardKey>
+        <KeyBoardKey data-value={"f"}>F</KeyBoardKey>
+        <KeyBoardKey data-value={"g"}>G</KeyBoardKey>
+        <KeyBoardKey data-value={"h"}>H</KeyBoardKey>
+        <KeyBoardKey data-value={"j"}>J</KeyBoardKey>
+        <KeyBoardKey data-value={"k"}>K</KeyBoardKey>
+        <KeyBoardKey data-value={"l"}>L</KeyBoardKey>
       </KeyBoardRow>
       <KeyBoardRow>
-        <KeyBoardBigKey>Enter</KeyBoardBigKey>
-        <KeyBoardKey>Z</KeyBoardKey>
-        <KeyBoardKey>X</KeyBoardKey>
-        <KeyBoardKey>C</KeyBoardKey>
-        <KeyBoardKey>V</KeyBoardKey>
-        <KeyBoardKey>B</KeyBoardKey>
-        <KeyBoardKey>N</KeyBoardKey>
-        <KeyBoardKey>M</KeyBoardKey>
-        <KeyBoardBigKey>Back</KeyBoardBigKey>
+        <KeyBoardBigKey onClick={() => submitGuess()}>Enter</KeyBoardBigKey>
+        <KeyBoardKey data-value={"z"}>Z</KeyBoardKey>
+        <KeyBoardKey data-value={"x"}>X</KeyBoardKey>
+        <KeyBoardKey data-value={"c"}>C</KeyBoardKey>
+        <KeyBoardKey data-value={"v"}>V</KeyBoardKey>
+        <KeyBoardKey data-value={"b"}>B</KeyBoardKey>
+        <KeyBoardKey data-value={"n"}>N</KeyBoardKey>
+        <KeyBoardKey data-value={"m"}>M</KeyBoardKey>
+        <KeyBoardBigKey onClick={() => deleteWord()}>Back</KeyBoardBigKey>
       </KeyBoardRow>
     </KeyBoardWrap>
   )
