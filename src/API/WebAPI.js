@@ -6,7 +6,6 @@ const isValidWords = (words) => {
     url: `https://wordsapiv1.p.rapidapi.com/words/${words}/definitions`,
     headers: {
       "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-      "x-rapidapi-key": `${process.env.Rapid_api_key}`,
     },
   }
   axios
