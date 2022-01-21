@@ -20,59 +20,75 @@ const KeyBoardKey = styled.button`
   height: 100%;
   width: 40px;
   margin: 3px;
-  background-color: ${theme_color.words_background_unused};
+  background-color: ${(props) => {
+    switch (props.status) {
+      case "unused": {
+        return theme_color.words_background_unused
+      }
+      case "correct": {
+        return theme_color.words_background_correct
+      }
+      case "near": {
+        return theme_color.words_background_nearAnswer
+      }
+      case "wrong": {
+        return theme_color.words_background_wrongAnswer
+      }
+    }
+  }};
   color: ${theme_color.font_main};
 `
 const KeyBoardBigKey = styled(KeyBoardKey)`
   width: 60px;
 `
 const KeyBoard = ({ enterWord, submitGuess, deleteWord }) => {
-  return (
-    <KeyBoardWrap>
-      <KeyBoardRow>
-        <KeyBoardKey
-          data-value={"q"}
-          onClick={() => {
-            enterWord("q")
-            console.log("click")
-          }}
-        >
-          Q
-        </KeyBoardKey>
-        <KeyBoardKey data-value={"w"}>W</KeyBoardKey>
-        <KeyBoardKey data-value={"e"}>E</KeyBoardKey>
-        <KeyBoardKey data-value={"r"}>R</KeyBoardKey>
-        <KeyBoardKey data-value={"t"}>T</KeyBoardKey>
-        <KeyBoardKey data-value={"y"}>Y</KeyBoardKey>
-        <KeyBoardKey data-value={"u"}>U</KeyBoardKey>
-        <KeyBoardKey data-value={"i"}>I</KeyBoardKey>
-        <KeyBoardKey data-value={"o"}>O</KeyBoardKey>
-        <KeyBoardKey data-value={"p"}>P</KeyBoardKey>
+  const keyboardArray = [
+    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+    ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+    ["Z", "X", "C", "V", "B", "N", "M"],
+  ]
+  const renderKeyColor = () => {
+    // 待處理
+  }
+  const renderKeyBoardRows = keyboardArray.map((row, rowIndex) => {
+    return (
+      <KeyBoardRow key={rowIndex}>
+        {rowIndex === 2 && (
+          <KeyBoardBigKey
+            status={"unused"}
+            key={"Enter"}
+            onClick={() => submitGuess()}
+          >
+            Enter
+          </KeyBoardBigKey>
+        )}
+        {row.map((key) => {
+          return (
+            <KeyBoardKey
+              status={"unused"}
+              key={key}
+              value={key}
+              onClick={() => {
+                enterWord(key)
+              }}
+            >
+              {key}
+            </KeyBoardKey>
+          )
+        })}
+        {rowIndex === 2 && (
+          <KeyBoardBigKey
+            status={"unused"}
+            key={"Back"}
+            onClick={() => deleteWord()}
+          >
+            Back
+          </KeyBoardBigKey>
+        )}
       </KeyBoardRow>
-      <KeyBoardRow>
-        <KeyBoardKey data-value={"a"}>A</KeyBoardKey>
-        <KeyBoardKey data-value={"s"}>S</KeyBoardKey>
-        <KeyBoardKey data-value={"d"}>D</KeyBoardKey>
-        <KeyBoardKey data-value={"f"}>F</KeyBoardKey>
-        <KeyBoardKey data-value={"g"}>G</KeyBoardKey>
-        <KeyBoardKey data-value={"h"}>H</KeyBoardKey>
-        <KeyBoardKey data-value={"j"}>J</KeyBoardKey>
-        <KeyBoardKey data-value={"k"}>K</KeyBoardKey>
-        <KeyBoardKey data-value={"l"}>L</KeyBoardKey>
-      </KeyBoardRow>
-      <KeyBoardRow>
-        <KeyBoardBigKey onClick={() => submitGuess()}>Enter</KeyBoardBigKey>
-        <KeyBoardKey data-value={"z"}>Z</KeyBoardKey>
-        <KeyBoardKey data-value={"x"}>X</KeyBoardKey>
-        <KeyBoardKey data-value={"c"}>C</KeyBoardKey>
-        <KeyBoardKey data-value={"v"}>V</KeyBoardKey>
-        <KeyBoardKey data-value={"b"}>B</KeyBoardKey>
-        <KeyBoardKey data-value={"n"}>N</KeyBoardKey>
-        <KeyBoardKey data-value={"m"}>M</KeyBoardKey>
-        <KeyBoardBigKey onClick={() => deleteWord()}>Back</KeyBoardBigKey>
-      </KeyBoardRow>
-    </KeyBoardWrap>
-  )
+    )
+  })
+  return <KeyBoardWrap>{renderKeyBoardRows}</KeyBoardWrap>
 }
 
 export default KeyBoard

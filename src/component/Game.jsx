@@ -15,7 +15,22 @@ const AnswerWord = styled.div`
   height: 100%;
   width: 60px;
   margin: 3px;
-  background-color: ${theme_color.words_background_unused};
+  background-color: ${(props) => {
+    switch (props.status) {
+      case "TBD": {
+        return theme_color.words_background_unused
+      }
+      case "correct": {
+        return theme_color.words_background_correct
+      }
+      case "near": {
+        return theme_color.words_background_nearAnswer
+      }
+      case "wrong": {
+        return theme_color.words_background_wrongAnswer
+      }
+    }
+  }};
   &::before {
     content: "${(props) => (props.value ? props.value : "")}";
     font-size: 2rem;
@@ -27,16 +42,35 @@ const AnswerWord = styled.div`
   }
 `
 
-const Game = ({ currentAnswer, guessHistory }) => {
-  const renderRows = guessHistory.map((row) => {
-    console.log(row)
+const Game = ({ currentMap }) => {
+  const renderRows = currentMap[0].map((row, rowIndex) => {
     return (
-      <AnswerRow>
-        <AnswerWord value={row[0][0] ? row[0][0] : ""} key={0} />
-        <AnswerWord value={row[0][1] ? row[0][1] : ""} key={1} />
-        <AnswerWord value={row[0][2] ? row[0][2] : ""} key={2} />
-        <AnswerWord value={row[0][3] ? row[0][3] : ""} key={3} />
-        <AnswerWord value={row[0][4] ? row[0][4] : ""} key={4} />
+      <AnswerRow key={rowIndex}>
+        <AnswerWord
+          value={row[0] ? row[0] : ""}
+          key={`${rowIndex}-0`}
+          status={currentMap[1][rowIndex][0]}
+        />
+        <AnswerWord
+          value={row[1] ? row[1] : ""}
+          key={`${rowIndex}-1`}
+          status={currentMap[1][rowIndex][1]}
+        />
+        <AnswerWord
+          value={row[2] ? row[2] : ""}
+          key={`${rowIndex}-2`}
+          status={currentMap[1][rowIndex][2]}
+        />
+        <AnswerWord
+          value={row[3] ? row[3] : ""}
+          key={`${rowIndex}-3`}
+          status={currentMap[1][rowIndex][3]}
+        />
+        <AnswerWord
+          value={row[4] ? row[4] : ""}
+          key={`${rowIndex}-4`}
+          status={currentMap[1][rowIndex][4]}
+        />
       </AnswerRow>
     )
   })

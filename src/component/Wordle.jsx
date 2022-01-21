@@ -18,79 +18,119 @@ const WordleBox = styled.div`
 `
 
 const Wordle = () => {
-  const [guessHistory, setGuessHistory] = useState([
-    [""],
-    [""],
-    [""],
-    [""],
-    [""],
-    [""],
+  const [currentMap, setCurrentMap] = useState([
+    [
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+    ],
+    [
+      ["TBD", "TBD", "TBD", "TBD", "TBD"],
+      ["TBD", "TBD", "TBD", "TBD", "TBD"],
+      ["TBD", "TBD", "TBD", "TBD", "TBD"],
+      ["TBD", "TBD", "TBD", "TBD", "TBD"],
+      ["TBD", "TBD", "TBD", "TBD", "TBD"],
+      ["TBD", "TBD", "TBD", "TBD", "TBD"],
+    ],
   ])
-  const [currentAnswer, setCurrentAnswer] = useState([])
-  const [answer, setAnswer] = useState("")
+  console.log(currentMap)
+  const [count, setCount] = useState(0)
+  const [currentRow, setCurrentRow] = useState(0)
+  const [currentCol, setCurrentCol] = useState(0)
+  const [answer, setAnswer] = useState(["A", "P", "P", "L", "E"])
   const isHandlingKeyDown = useRef(false)
-  console.log("render", guessHistory[0])
+  const deleteWord = () => {
+    // 確認當前字串長度
+    if (currentCol !== 0) {
+      setCurrentMap([
+        currentMap[0].map((row, rowIndex) => {
+          if (currentRow !== rowIndex) return row
+          return row.map((col, colIndex) => {
+            if (currentCol - 1 !== colIndex) return col
+            return ""
+          })
+        }),
+
+        currentMap[1],
+      ])
+      setCurrentCol(currentCol - 1)
+    }
+  }
+  const enterWord = (word) => {
+    // 確認當前字串長度
+    if (currentCol !== 5) {
+      setCurrentMap([
+        currentMap[0].map((row, rowIndex) => {
+          if (currentRow !== rowIndex) return row
+          return row.map((col, colIndex) => {
+            if (currentCol !== colIndex) return col
+            return word
+          })
+        }),
+        currentMap[1],
+      ])
+      setCurrentCol(currentCol + 1)
+    }
+  }
+  const submitGuess = () => {
+    // 未處理
+    console.log("submit")
+    if (currentMap[0][currentRow].length === 5) {
+      checkAnswer(currentMap[0][currentRow])
+      setCurrentRow(currentRow + 1)
+      setCurrentCol(0)
+    }
+    // isValidWords(currentAnswer)
+  }
+  const checkAnswer = (arr) => {
+    // 未完成，待補詳細換色功能
+    const array = []
+    for (let word in arr) {
+      if (answer.indexOf(arr[word]) !== -1) {
+        if (answer[word] === arr[word]) {
+          array.push("correct")
+        } else {
+          array.push("near")
+        }
+      } else {
+        array.push("wrong")
+      }
+    }
+    setCurrentMap([
+      currentMap[0],
+      currentMap[1].map((row, rowIndex) => {
+        if (currentRow !== rowIndex) return row
+        return array
+      }),
+    ])
+  }
   const handleKeyDown = (e) => {
     const regex = /[a-z]|[A-Z]/
     if (e.key.length === 1 && regex.test(e.key)) {
-      console.log("keydown", isHandlingKeyDown.current)
-      enterWord(e.key)
+      enterWord(e.key.toUpperCase()) // 處理大小寫轉換
     } else if (e.key === "Enter") {
       submitGuess()
     } else if (e.key === "Backspace") {
       deleteWord()
     }
   }
-  document.addEventListener("keydown", (event) => {
-    if (!isHandlingKeyDown.current) {
-      handleKeyDown(event)
-    }
-    isHandlingKeyDown.current = true
-  })
-  document.addEventListener("keyup", (event) => {
-    isHandlingKeyDown.current = false
-  })
 
-  const deleteWord = () => {
-    // 複製當前輸入、刪除最後一個字後重設至當前輸入
-    const newAnswer = currentAnswer
-    newAnswer.pop()
-    setCurrentAnswer(newAnswer)
-    setGuessHistory([[newAnswer]])
-  }
-  const enterWord = (word) => {
-    // 確認當前字串長度
-    const newAnswer = currentAnswer
-    if (currentAnswer.length !== 5) {
-      newAnswer.push(word)
-      setCurrentAnswer(newAnswer)
-      setGuessHistory([[newAnswer]])
-    }
-  }
-  const submitGuess = () => {
-    // 未處理
-    // isValidWords(currentAnswer)
-    // checkAnswer(currentAnswer)
-    // setGuessHistory([currentAnswer, ...guessHistory])
-  }
-  const checkAnswer = (arr) => {
-    // 未完成
-    for (word in arr) {
-      if (answer.indexOf(word) !== -1) {
-        if (answer.indexOf(word) === word.index) {
-          return "correct"
-        } else {
-          return "near"
-        }
-      } else {
-        return "wrong"
-      }
-    }
-  }
   return (
-    <WordleBox>
+    <WordleBox
+      onKeyDown={(event) => {
+        if (!isHandlingKeyDown.current) {
+          handleKeyDown(event)
+        }
+        isHandlingKeyDown.current = true
+      }}
+      onKeyUp={() => (isHandlingKeyDown.current = false)}
+      tabIndex={-1}
+    >
       <Navbar />
-      <Game currentAnswer={currentAnswer} guessHistory={guessHistory} />
+      <Game currentMap={currentMap} />
       <KeyBoard
         deleteWord={deleteWord}
         enterWord={enterWord}
