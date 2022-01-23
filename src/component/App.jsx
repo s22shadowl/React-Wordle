@@ -5,8 +5,8 @@ import GlobalStyle from "../style/GlobalStyle"
 function App() {
   return (
     <>
-      <GlobalStyle />
       <div className="container">
+        <GlobalStyle />
         <Wordle />
       </div>
     </>

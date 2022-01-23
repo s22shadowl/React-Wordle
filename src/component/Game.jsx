@@ -1,5 +1,4 @@
 import React from "react"
-import { render } from "react-dom"
 import styled from "styled-components"
 import { theme_color } from "../style/GlobalStyle"
 
@@ -15,6 +14,7 @@ const AnswerWord = styled.div`
   height: 100%;
   width: 60px;
   margin: 3px;
+  border-radius: 3px;
   background-color: ${(props) => {
     switch (props.status) {
       case "TBD": {
@@ -46,31 +46,15 @@ const Game = ({ currentMap }) => {
   const renderRows = currentMap[0].map((row, rowIndex) => {
     return (
       <AnswerRow key={rowIndex}>
-        <AnswerWord
-          value={row[0] ? row[0] : ""}
-          key={`${rowIndex}-0`}
-          status={currentMap[1][rowIndex][0]}
-        />
-        <AnswerWord
-          value={row[1] ? row[1] : ""}
-          key={`${rowIndex}-1`}
-          status={currentMap[1][rowIndex][1]}
-        />
-        <AnswerWord
-          value={row[2] ? row[2] : ""}
-          key={`${rowIndex}-2`}
-          status={currentMap[1][rowIndex][2]}
-        />
-        <AnswerWord
-          value={row[3] ? row[3] : ""}
-          key={`${rowIndex}-3`}
-          status={currentMap[1][rowIndex][3]}
-        />
-        <AnswerWord
-          value={row[4] ? row[4] : ""}
-          key={`${rowIndex}-4`}
-          status={currentMap[1][rowIndex][4]}
-        />
+        {row.map((col, colIndex) => {
+          return (
+            <AnswerWord
+              value={col}
+              key={`${rowIndex}-${colIndex}`}
+              status={currentMap[1][rowIndex][colIndex]}
+            />
+          )
+        })}
       </AnswerRow>
     )
   })
