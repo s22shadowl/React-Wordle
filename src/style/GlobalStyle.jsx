@@ -11,6 +11,21 @@ const theme_color = {
   words_background_wrongAnswer: "#273746",
 }
 
+const InValidAnswerHint = styled.div`
+  position: absolute;
+  background-color: ${theme_color.background_sub};
+  color: ${theme_color.font_sub};
+  width: 200px;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 100;
+`
+
 const GlobalStyle = createGlobalStyle`
     * {
         font-family: "微軟正黑體";
@@ -39,4 +54,4 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default GlobalStyle
-export { theme_color }
+export { theme_color, InValidAnswerHint }

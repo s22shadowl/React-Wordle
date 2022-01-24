@@ -3,8 +3,8 @@ import styled from "styled-components"
 import Game from "./Game"
 import Navbar from "./Navbar"
 import { createRandomAnswer, answerLibrary } from "./library"
-
-import { theme_color } from "../style/GlobalStyle"
+import { RulePopUpBox, ResultPopUpBox } from "./Popup"
+import { InValidAnswerHint, theme_color } from "../style/GlobalStyle"
 import KeyBoard from "./Keyboard"
 
 const WordleBox = styled.div`
@@ -53,12 +53,17 @@ const Wordle = () => {
   const [currentMap, setCurrentMap] = useState(defaultMap)
   const [currentRow, setCurrentRow] = useState(0)
   const [currentCol, setCurrentCol] = useState(0)
-  const [answer, setAnswer] = useState(createRandomAnswer()) // 未完成：檢查答案是否能通過 API
+  const [answer, setAnswer] = useState(createRandomAnswer())
   const isHandlingKeyDown = useRef(false)
+  const [isSendingAnswer, setIsSendingAnswer] = useState("none")
+  const [isShowingResult, setIsShowingResult] = useState(false)
+  const [isShowingRule, setIsShowingRule] = useState(false)
+  const [isGameOver, setIsGameOver] = useState(false)
   const [currentKeyBoard, setCurrentKeyBoard] = useState(defaultKeyboardStatus)
   const wordleRef = useRef()
   useEffect(() => {
     wordleRef.current.focus()
+    setIsShowingRule(true)
   }, [])
   console.log("cheat: The answer is:", answer)
   const deleteWord = () => {
@@ -105,12 +110,16 @@ const Wordle = () => {
     // 未處理：驗證動畫、勝負判斷
     if (currentMap[0][currentRow][4] !== "") {
       if (checkAnswerIsValidWord(currentMap[0][currentRow])) {
+        setIsSendingAnswer("valid")
         comparedAnswer(currentMap[0][currentRow])
         setCurrentRow(currentRow + 1)
         setCurrentCol(0)
       } else {
-        console.log("invalid")
+        setIsSendingAnswer("invalid")
       }
+      setTimeout(() => {
+        setIsSendingAnswer("none")
+      }, 1500)
     }
   }
   const handleChangeKeyBoard = (newStatus) => {
@@ -138,12 +147,16 @@ const Wordle = () => {
         }
       }
     }
-    if (correctCount === 5) {
-      console.log("WIN")
+    if (correctCount === 5 || currentRow > 5) {
+      setIsShowingResult(true)
+      setIsGameOver(true)
     }
     for (let word in arr) {
       // 再次遍歷，處理錯位字母
-      if (comparedAnswerArray.indexOf(arr[word]) !== -1) {
+      if (
+        comparedAnswerArray.indexOf(arr[word]) !== -1 &&
+        newAnswerRowStatus[word] !== "correct"
+      ) {
         newAnswerRowStatus[word] = "near"
         comparedAnswerArray.splice(
           comparedAnswerArray.indexOf(arr[word]),
@@ -167,7 +180,7 @@ const Wordle = () => {
   }
   const handleKeyDown = (e) => {
     const regex = /[a-z]|[A-Z]/
-    if (e.key.length === 1 && regex.test(e.key)) {
+    if (e.key.length === 1 && regex.test(e.key) && !isGameOver) {
       enterWord(e.key.toUpperCase()) // 處理大小寫轉換
     } else if (e.key === "Enter") {
       submitGuess()
@@ -187,13 +200,29 @@ const Wordle = () => {
       tabIndex={-1}
       ref={wordleRef}
     >
+      {isShowingRule && <RulePopUpBox setIsShowingRule={setIsShowingRule} />}
+      {isShowingResult && (
+        <ResultPopUpBox
+          setIsShowingResult={setIsShowingResult}
+          currentRow={currentRow}
+        />
+      )}
       <Navbar />
-      <Game currentMap={currentMap} />
+      {isSendingAnswer === "invalid" && (
+        <InValidAnswerHint>題庫中不存在此字</InValidAnswerHint>
+      )}
+      <Game
+        currentMap={currentMap}
+        isSendingAnswer={isSendingAnswer}
+        currentRow={currentRow}
+        currentCol={currentCol}
+      />
       <KeyBoard
         deleteWord={deleteWord}
         enterWord={enterWord}
         submitGuess={submitGuess}
         currentKeyBoard={currentKeyBoard}
+        isGameOver={isGameOver}
       />
     </WordleBox>
   )
