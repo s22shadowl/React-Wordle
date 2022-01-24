@@ -42,7 +42,14 @@ const KeyBoardKey = styled.button`
 const KeyBoardBigKey = styled(KeyBoardKey)`
   width: 60px;
 `
-const KeyBoard = ({ enterWord, submitGuess, deleteWord, currentKeyBoard }) => {
+const KeyBoard = ({
+  enterWord,
+  submitGuess,
+  deleteWord,
+  currentKeyBoard,
+  isGameOver,
+}) => {
+  console.log(isGameOver)
   const keyboardArray = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
@@ -55,7 +62,10 @@ const KeyBoard = ({ enterWord, submitGuess, deleteWord, currentKeyBoard }) => {
           <KeyBoardBigKey
             status={"unused"}
             key={"Enter"}
-            onClick={() => submitGuess()}
+            onClick={() => {
+              submitGuess()
+            }}
+            disabled={isGameOver}
           >
             Enter
           </KeyBoardBigKey>
@@ -69,6 +79,7 @@ const KeyBoard = ({ enterWord, submitGuess, deleteWord, currentKeyBoard }) => {
               onClick={() => {
                 enterWord(key)
               }}
+              disabled={isGameOver}
             >
               {key}
             </KeyBoardKey>
@@ -79,6 +90,7 @@ const KeyBoard = ({ enterWord, submitGuess, deleteWord, currentKeyBoard }) => {
             status={"unused"}
             key={"Back"}
             onClick={() => deleteWord()}
+            disabled={isGameOver}
           >
             Back
           </KeyBoardBigKey>
