@@ -42,12 +42,27 @@ const rotateAnimation = keyframes`
 
  }
 `
-const GameWrap = styled.div``
+const GameWrap = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+`
+
+const GameBoard = styled.div`
+  width: 350px;
+  height: 420px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 const AnswerRow = styled.div`
   display: flex;
-  min-width: 300px;
-  height: 60px;
-  margin: 6px;
+  width: 100%;
+  justify-content: center;
+  flex: 1;
+  margin: 3px;
   animation: ${(props) => {
       return props.isInvalidAnswer ? shakeAnimation : "none"
     }}
@@ -56,7 +71,8 @@ const AnswerRow = styled.div`
 const AnswerWord = styled.div`
   position: relative;
   height: 100%;
-  width: 60px;
+  flex: 1;
+
   margin: 3px;
   border-radius: 3px;
   background-color: ${(props) => {
@@ -118,7 +134,11 @@ const Game = ({ currentMap, isSendingAnswer, currentRow, currentCol }) => {
       </AnswerRow>
     )
   })
-  return <GameWrap>{renderRows}</GameWrap>
+  return (
+    <GameWrap>
+      <GameBoard>{renderRows}</GameBoard>
+    </GameWrap>
+  )
 }
 
 export default Game

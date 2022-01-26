@@ -38,6 +38,9 @@ const GlobalStyle = createGlobalStyle`
     body {
       margin: 0;
     }
+    p {
+      margin: 8px 0;
+    }
     .container {
         height: 100%;
         width: 100%;

@@ -6,35 +6,32 @@ const NavbarWrap = styled.div`
   position: relative;
   text-align: center;
   width: 100%;
-  height: 50px;
-  font-size: 2rem;
+  font-size: 36px;
   color: ${theme_color.font_main};
-  padding: 5px;
   border-bottom: ${theme_color.background_sub} 2px solid;
 `
 const NavButton = styled.div`
   cursor: pointer;
   position: absolute;
-  border-radius: 100%;
-  margin: 5px;
   background-color: ${theme_color.background_sub};
-  height: 30px;
-  width: 30px;
+  color: ${theme_color.background_main};
+  font-size: 18px;
+  padding: 4px;
+  top: 50%;
+  transform: translate(0%, -50%);
 `
-const HintButton = styled(NavButton)``
-const ResultButton = styled(NavButton)`
-  right: 5px;
+const HintButton = styled(NavButton)`
+  left: 4%;
 `
 const SettingButton = styled(NavButton)`
-  right: 40px;
+  right: 4%;
 `
 
-const Navbar = () => {
+const Navbar = ({ setIsShowingRule }) => {
   return (
     <NavbarWrap>
-      <HintButton />
-      <ResultButton />
-      <SettingButton />
+      <HintButton onClick={() => setIsShowingRule(true)}>提示</HintButton>
+      <SettingButton>設定</SettingButton>
       Wordle22
     </NavbarWrap>
   )
