@@ -2499,8 +2499,5 @@ yummy
 zones`
 
 const libraryArray = answerLibrary.split(/\n/)
-const createRandomAnswer = () => {
-  return libraryArray[Math.floor(Math.random() * 2499)].toUpperCase().split("")
-}
 
-export { answerLibrary, createRandomAnswer }
+export { libraryArray }

@@ -2,14 +2,12 @@ import React, { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import Game from "./Game"
 import Navbar from "./Navbar"
-import { createRandomAnswer, answerLibrary } from "./library"
-import { RulePopUpBox, ResultPopUpBox } from "./Popup"
+import { RulePopUpBox, ResultPopUpBox } from "./PopUp"
 import { InValidAnswerHint, theme_color } from "../style/GlobalStyle"
 import KeyBoard from "./Keyboard"
 
 const WordleBox = styled.div`
   background-color: ${theme_color.background_main};
-  width: 500px;
   min-height: 100vh;
   display: flex;
   justify-content: space-between;
@@ -53,19 +51,21 @@ const Wordle = () => {
   const [currentMap, setCurrentMap] = useState(defaultMap)
   const [currentRow, setCurrentRow] = useState(0)
   const [currentCol, setCurrentCol] = useState(0)
-  const [answer, setAnswer] = useState(createRandomAnswer())
+  const [answer, setAnswer] = useState(null)
+  const [answerCode, setAnswerCode] = useState(null)
   const isHandlingKeyDown = useRef(false)
   const [isSendingAnswer, setIsSendingAnswer] = useState("none")
   const [isShowingResult, setIsShowingResult] = useState(false)
-  const [isShowingRule, setIsShowingRule] = useState(false)
+  const [isShowingRule, setIsShowingRule] = useState(true)
+  const [isGameStart, setIsGameStart] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
   const [currentKeyBoard, setCurrentKeyBoard] = useState(defaultKeyboardStatus)
   const wordleRef = useRef()
   useEffect(() => {
     wordleRef.current.focus()
-    setIsShowingRule(true)
-  }, [])
+  }, [isGameStart])
   console.log("cheat: The answer is:", answer)
+  console.log("code", answerCode)
   const deleteWord = () => {
     // 確認當前字串長度
     if (currentCol !== 0) {
@@ -180,7 +180,7 @@ const Wordle = () => {
   }
   const handleKeyDown = (e) => {
     const regex = /[a-z]|[A-Z]/
-    if (e.key.length === 1 && regex.test(e.key) && !isGameOver) {
+    if (e.key.length === 1 && regex.test(e.key) && !isGameOver && isGameStart) {
       enterWord(e.key.toUpperCase()) // 處理大小寫轉換
     } else if (e.key === "Enter") {
       submitGuess()
@@ -200,14 +200,23 @@ const Wordle = () => {
       tabIndex={-1}
       ref={wordleRef}
     >
-      {isShowingRule && <RulePopUpBox setIsShowingRule={setIsShowingRule} />}
+      {isShowingRule && (
+        <RulePopUpBox
+          setIsShowingRule={setIsShowingRule}
+          isGameStart={isGameStart}
+          setIsGameStart={setIsGameStart}
+          setAnswer={setAnswer}
+          setAnswerCode={setAnswerCode}
+          answerCode={answerCode}
+        />
+      )}
       {isShowingResult && (
         <ResultPopUpBox
           setIsShowingResult={setIsShowingResult}
           currentRow={currentRow}
         />
       )}
-      <Navbar />
+      <Navbar setIsShowingRule={setIsShowingRule} />
       {isSendingAnswer === "invalid" && (
         <InValidAnswerHint>題庫中不存在此字</InValidAnswerHint>
       )}

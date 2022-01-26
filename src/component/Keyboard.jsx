@@ -6,19 +6,20 @@ const KeyBoardWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 30vh;
   width: 100%;
+  padding-bottom: 6px;
 `
 const KeyBoardRow = styled.div`
   display: flex;
   justify-content: center;
-  height: 70px;
+  flex: 1;
+  min-height: 50px;
   margin: 3px;
 `
 const KeyBoardKey = styled.button`
   cursor: pointer;
   height: 100%;
-  width: 40px;
+  flex: 1;
   margin: 3px;
   border-radius: 3px;
   background-color: ${(props) => {
@@ -40,7 +41,7 @@ const KeyBoardKey = styled.button`
   color: ${theme_color.font_main};
 `
 const KeyBoardBigKey = styled(KeyBoardKey)`
-  width: 60px;
+  flex: 2;
 `
 const KeyBoard = ({
   enterWord,
