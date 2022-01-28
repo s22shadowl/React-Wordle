@@ -1,4 +1,13 @@
-# Wordle22
+## Wordle22
 
-模仿 (Wordle)[https://www.powerlanguage.co.uk/wordle/] 之玩法與設計開發的習作專案。
-使用 Vite 進行開發。
+模仿 [Wordle](https://www.powerlanguage.co.uk/wordle/) 之玩法與設計開發的習作專案。
+
+## 開發工具
+
+‧React.js
+‧styled-components
+‧vite
+
+## 開發者
+
+[s22shadowl](https://github.com/s22shadowl)
