@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import { theme_color } from "../style/GlobalStyle"
-import { libraryArray } from "./library"
 
 const PopUpMask = styled.div`
   position: fixed;
@@ -31,7 +30,7 @@ const NearText = styled.span`
 const WrongText = styled.span`
   color: ${theme_color.words_background_unused};
 `
-const RuleWrap = styled.div`
+const PopUpWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -48,6 +47,7 @@ const RuleWrap = styled.div`
   transform: translate(-50%, -50%);
   z-index: 100;
 `
+
 const PopUpCloseBTN = styled.button`
   position: absolute;
   top: 10px;
@@ -55,7 +55,7 @@ const PopUpCloseBTN = styled.button`
   font-size: 24px;
   background-color: ${theme_color.words_background_nearAnswer};
 `
-const StartGameBTNs = styled.div`
+const StartGameWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,55 +71,30 @@ const StartGameInput = styled.input`
   width: 200px;
   background-color: ${theme_color.background_sub};
 `
-const RuleText = styled.div`
+const PopUpText = styled.div`
   text-align: left;
-`
-const ResultText = styled.div``
-const ResultWrap = styled.div`
-  display: flex;
-  align-items: center;
-  position: fixed;
-  width: 300px;
-  height: 300px;
-  padding: 10px;
-  background-color: ${theme_color.background_main};
-  color: ${theme_color.font_main};
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
 `
 
 const RulePopUpBox = ({
-  setIsShowingRule,
-  isGameStart,
-  setIsGameStart,
+  // 未完成：2元件整合為一個。
+  setIsShowingPopUp,
+  gameStatus,
+  setGameStatus,
   setAnswer,
   setAnswerCode,
   answerCode,
+  createRandomAnswer,
+  getSpecifyAnswer,
 }) => {
   const [isUsingSpecifyAnswer, setIsUsingSpecifyAnswer] = useState(false)
   const [answerCodeInputValue, setAnswerCodeInputValue] = useState("")
-  const createRandomAnswer = () => {
-    const answerIndex = Math.floor(Math.random() * 2499)
-    setAnswerCode(btoa(btoa(answerIndex)))
-    return libraryArray[answerIndex].toUpperCase().split("")
-  }
-  const getSpecifyAnswer = (code) => {
-    const decodeCode = atob(atob(code))
-    if (decodeCode > 0 && decodeCode <= 2500) {
-      setAnswerCode(code)
-      return libraryArray[decodeCode].toUpperCase().split("")
-    }
-    return
-  }
   const StartGameBox = () => {
-    if (isGameStart) {
+    // 根據遊戲狀態切換顯示內容
+    if (gameStatus === "start") {
       return <AnswerCodeText>當前題目碼：{answerCode}</AnswerCodeText>
     } else if (isUsingSpecifyAnswer) {
       return (
-        <StartGameBTNs>
+        <StartGameWrap>
           <StartGameInput
             value={answerCodeInputValue}
             onChange={(e) => setAnswerCodeInputValue(e.target.value)}
@@ -128,23 +103,23 @@ const RulePopUpBox = ({
           <StartGameBTN
             onClick={() => {
               setAnswer(getSpecifyAnswer(answerCodeInputValue))
-              setIsGameStart(true)
-              setIsShowingRule(false)
+              setGameStatus("start")
+              setIsShowingPopUp("none")
               setIsUsingSpecifyAnswer(false)
             }}
           >
             送出
           </StartGameBTN>
-        </StartGameBTNs>
+        </StartGameWrap>
       )
     } else {
       return (
-        <StartGameBTNs>
+        <StartGameWrap>
           <StartGameBTN
             onClick={() => {
               setAnswer(createRandomAnswer())
-              setIsShowingRule(false)
-              setIsGameStart(true)
+              setIsShowingPopUp("none")
+              setGameStatus("start")
             }}
           >
             隨機開始
@@ -156,19 +131,23 @@ const RulePopUpBox = ({
           >
             輸入題目碼
           </StartGameBTN>
-        </StartGameBTNs>
+        </StartGameWrap>
       )
     }
   }
   return (
-    <PopUpMask onClick={() => (isGameStart ? setIsShowingRule(false) : null)}>
-      <RuleWrap onClick={(e) => e.stopPropagation()}>
-        {isGameStart && (
-          <PopUpCloseBTN onClick={() => setIsShowingRule(false)}>
+    <PopUpMask
+      onClick={() =>
+        gameStatus === "start" ? setIsShowingPopUp("none") : null
+      }
+    >
+      <PopUpWrap onClick={(e) => e.stopPropagation()}>
+        {gameStatus === "start" && (
+          <PopUpCloseBTN onClick={() => setIsShowingPopUp("none")}>
             X
           </PopUpCloseBTN>
         )}
-        <RuleText>
+        <PopUpText>
           <p>
             Wordle22 是仿製{" "}
             <RuleLink
@@ -189,21 +168,29 @@ const RulePopUpBox = ({
           <p>
             如果字母並沒有出現在單字中，則會顯示<WrongText>灰色</WrongText>。
           </p>
-        </RuleText>
+        </PopUpText>
         <StartGameBox />
-      </RuleWrap>
+      </PopUpWrap>
     </PopUpMask>
   )
 }
-const ResultPopUpBox = ({ currentRow, setIsShowingResult }) => {
+const ResultPopUpBox = ({ currentRow, setIsShowingPopUp }) => {
   return (
-    <PopUpMask onClick={() => setIsShowingResult(false)}>
-      <ResultWrap onClick={(e) => e.stopPropagation()}>
-        <PopUpCloseBTN onClick={() => setIsShowingResult(false)}>
+    <PopUpMask onClick={() => setIsShowingPopUp("none")}>
+      <PopUpWrap onClick={(e) => e.stopPropagation()}>
+        <PopUpCloseBTN onClick={() => setIsShowingPopUp("none")}>
           X
         </PopUpCloseBTN>
-        <ResultText>你的猜測次數：{currentRow}</ResultText>
-      </ResultWrap>
+        <PopUpText>勝利！你的猜測次數：{currentRow}</PopUpText>
+        <StartGameBTN
+          onClick={() => {
+            localStorage.setItem("status", null)
+            window.location.reload()
+          }}
+        >
+          開啟新遊戲
+        </StartGameBTN>
+      </PopUpWrap>
     </PopUpMask>
   )
 }

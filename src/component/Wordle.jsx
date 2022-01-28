@@ -5,6 +5,7 @@ import Navbar from "./Navbar"
 import { RulePopUpBox, ResultPopUpBox } from "./PopUp"
 import { InValidAnswerHint, theme_color } from "../style/GlobalStyle"
 import KeyBoard from "./Keyboard"
+import { libraryArray, answerLibrary } from "./library"
 
 const WordleBox = styled.div`
   background-color: ${theme_color.background_main};
@@ -48,24 +49,64 @@ const Wordle = () => {
     Y: "unused",
     Z: "unused",
   }
-  const [currentMap, setCurrentMap] = useState(defaultMap)
+  const [currentMap, setCurrentMap] = useState(defaultMap) // 版面狀態儲存、控制
   const [currentRow, setCurrentRow] = useState(0)
   const [currentCol, setCurrentCol] = useState(0)
-  const [answer, setAnswer] = useState(null)
-  const [answerCode, setAnswerCode] = useState(null)
-  const isHandlingKeyDown = useRef(false)
-  const [isSendingAnswer, setIsSendingAnswer] = useState("none")
-  const [isShowingResult, setIsShowingResult] = useState(false)
-  const [isShowingRule, setIsShowingRule] = useState(true)
-  const [isGameStart, setIsGameStart] = useState(false)
-  const [isGameOver, setIsGameOver] = useState(false)
   const [currentKeyBoard, setCurrentKeyBoard] = useState(defaultKeyboardStatus)
-  const wordleRef = useRef()
+  const [answer, setAnswer] = useState(null) // 答案、題目碼儲存
+  const [answerCode, setAnswerCode] = useState(null)
+  const [isSendingAnswer, setIsSendingAnswer] = useState("none") //動畫、彈窗控制
+  const [isShowingPopUp, setIsShowingPopUp] = useState("rule")
+  const [gameStatus, setGameStatus] = useState("setting")
+  const isHandlingKeyDown = useRef(false)
+  const wordleRef = useRef() // Focus 用
+  useEffect(() => {
+    const localStatus = localStorage.getItem("status")
+    if (localStatus !== "null" && localStatus) {
+      renderLocalStatus(JSON.parse(localStatus))
+    }
+  }, [])
   useEffect(() => {
     wordleRef.current.focus()
-  }, [isGameStart])
+  }, [gameStatus])
+  useEffect(() => {
+    const localStatus = localStorage.getItem("status")
+    if (localStatus !== "null" && localStatus) {
+      const localStatus = {
+        map: currentMap,
+        row: currentRow,
+        col: currentCol,
+        answerCode: answerCode,
+        gameStatus: gameStatus,
+      }
+      localStorage.setItem("status", JSON.stringify(localStatus))
+    }
+  }, [currentMap, gameStatus])
   console.log("cheat: The answer is:", answer)
-  console.log("code", answerCode)
+  const createRandomAnswer = () => {
+    const answerIndex = Math.floor(Math.random() * 2499)
+    setAnswerCode(btoa(btoa(answerIndex)))
+    return libraryArray[answerIndex].toUpperCase().split("")
+  }
+  const getSpecifyAnswer = (code) => {
+    const decodeCode = atob(atob(code))
+    if (decodeCode > 0 && decodeCode <= 2500) {
+      setAnswerCode(code)
+      return libraryArray[decodeCode].toUpperCase().split("")
+    }
+    return
+  }
+  const renderLocalStatus = (local) => {
+    setCurrentMap(local.map)
+    setCurrentRow(local.row)
+    setCurrentCol(local.col)
+    setAnswerCode(local.answerCode)
+    setGameStatus(local.gameStatus)
+    setAnswer(getSpecifyAnswer(local.answerCode))
+    if (local.gameStatus === "over") {
+      setIsShowingPopUp("result")
+    }
+  }
   const deleteWord = () => {
     // 確認當前字串長度
     if (currentCol !== 0) {
@@ -148,8 +189,8 @@ const Wordle = () => {
       }
     }
     if (correctCount === 5 || currentRow > 5) {
-      setIsShowingResult(true)
-      setIsGameOver(true)
+      setIsShowingPopUp("result")
+      setGameStatus("over")
     }
     for (let word in arr) {
       // 再次遍歷，處理錯位字母
@@ -180,7 +221,7 @@ const Wordle = () => {
   }
   const handleKeyDown = (e) => {
     const regex = /[a-z]|[A-Z]/
-    if (e.key.length === 1 && regex.test(e.key) && !isGameOver && isGameStart) {
+    if (e.key.length === 1 && regex.test(e.key) && gameStatus === "start") {
       enterWord(e.key.toUpperCase()) // 處理大小寫轉換
     } else if (e.key === "Enter") {
       submitGuess()
@@ -200,23 +241,25 @@ const Wordle = () => {
       tabIndex={-1}
       ref={wordleRef}
     >
-      {isShowingRule && (
+      {isShowingPopUp === "rule" && (
         <RulePopUpBox
-          setIsShowingRule={setIsShowingRule}
-          isGameStart={isGameStart}
-          setIsGameStart={setIsGameStart}
+          setIsShowingPopUp={setIsShowingPopUp}
+          gameStatus={gameStatus}
+          setGameStatus={setGameStatus}
           setAnswer={setAnswer}
           setAnswerCode={setAnswerCode}
           answerCode={answerCode}
+          createRandomAnswer={createRandomAnswer}
+          getSpecifyAnswer={getSpecifyAnswer}
         />
       )}
-      {isShowingResult && (
+      {isShowingPopUp === "result" && (
         <ResultPopUpBox
-          setIsShowingResult={setIsShowingResult}
+          setIsShowingPopUp={setIsShowingPopUp}
           currentRow={currentRow}
         />
       )}
-      <Navbar setIsShowingRule={setIsShowingRule} />
+      <Navbar setIsShowingPopUp={setIsShowingPopUp} />
       {isSendingAnswer === "invalid" && (
         <InValidAnswerHint>題庫中不存在此字</InValidAnswerHint>
       )}
@@ -231,7 +274,7 @@ const Wordle = () => {
         enterWord={enterWord}
         submitGuess={submitGuess}
         currentKeyBoard={currentKeyBoard}
-        isGameOver={isGameOver}
+        gameStatus={gameStatus}
       />
     </WordleBox>
   )

@@ -27,10 +27,11 @@ const SettingButton = styled(NavButton)`
   right: 4%;
 `
 
-const Navbar = ({ setIsShowingRule }) => {
+const Navbar = ({ setIsShowingPopUp }) => {
+  // 未完成：結果按鈕切換。
   return (
     <NavbarWrap>
-      <HintButton onClick={() => setIsShowingRule(true)}>提示</HintButton>
+      <HintButton onClick={() => setIsShowingPopUp("rule")}>提示</HintButton>
       <SettingButton>設定</SettingButton>
       Wordle22
     </NavbarWrap>

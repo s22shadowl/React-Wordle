@@ -1,7 +1,7 @@
-import{s as r,W as se,j as F,U as z,r as b,R as ae,a as re}from"./vendor.93425360.js";const oe=function(){const d=document.createElement("link").relList;if(d&&d.supports&&d.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))m(e);new MutationObserver(e=>{for(const l of e)if(l.type==="childList")for(const i of l.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&m(i)}).observe(document,{childList:!0,subtree:!0});function n(e){const l={};return e.integrity&&(l.integrity=e.integrity),e.referrerpolicy&&(l.referrerPolicy=e.referrerpolicy),e.crossorigin==="use-credentials"?l.credentials="include":e.crossorigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function m(e){if(e.ep)return;e.ep=!0;const l=n(e);fetch(e.href,l)}};oe();const a={background_main:"#1C2833",background_sub:"#FFFFFF",font_main:"#FFFFFF",font_sub:"#1C2833",words_background_correct:"#27AE60",words_background_nearAnswer:"#FFC300",words_background_unused:"#ABB2B9",words_background_wrongAnswer:"#273746"},te=r.div`
+import{s as t,W as re,j,U as $,r as b,R as oe,a as te}from"./vendor.93425360.js";const ne=function(){const d=document.createElement("link").relList;if(d&&d.supports&&d.supports("modulepreload"))return;for(const a of document.querySelectorAll('link[rel="modulepreload"]'))h(a);new MutationObserver(a=>{for(const l of a)if(l.type==="childList")for(const c of l.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&h(c)}).observe(document,{childList:!0,subtree:!0});function n(a){const l={};return a.integrity&&(l.integrity=a.integrity),a.referrerpolicy&&(l.referrerPolicy=a.referrerpolicy),a.crossorigin==="use-credentials"?l.credentials="include":a.crossorigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function h(a){if(a.ep)return;a.ep=!0;const l=n(a);fetch(a.href,l)}};ne();const r={background_main:"#1C2833",background_sub:"#FFFFFF",font_main:"#FFFFFF",font_sub:"#1C2833",words_background_correct:"#27AE60",words_background_nearAnswer:"#FFC300",words_background_unused:"#ABB2B9",words_background_wrongAnswer:"#273746"},ie=t.div`
   position: absolute;
-  background-color: ${a.background_sub};
-  color: ${a.font_sub};
+  background-color: ${r.background_sub};
+  color: ${r.font_sub};
   width: 200px;
   font-size: 1.5rem;
   text-align: center;
@@ -11,7 +11,7 @@ import{s as r,W as se,j as F,U as z,r as b,R as ae,a as re}from"./vendor.9342536
   left: 50%;
   transform: translate(-50%, 0%);
   z-index: 100;
-`,ne=se`
+`,ce=re`
     * {
         font-family: "微軟正黑體";
         font-weight: bold;
@@ -31,7 +31,7 @@ import{s as r,W as se,j as F,U as z,r as b,R as ae,a as re}from"./vendor.9342536
         width: 100%;
         display: flex;
         justify-content: center;
-        background-color: ${a.background_main};
+        background-color: ${r.background_main};
     }
 
     button {
@@ -39,7 +39,7 @@ import{s as r,W as se,j as F,U as z,r as b,R as ae,a as re}from"./vendor.9342536
         border: none;
         box-shadow: none;
     }
-`,s=F.exports.jsx,f=F.exports.jsxs,ie=F.exports.Fragment,ce=z`
+`,s=j.exports.jsx,f=j.exports.jsxs,le=j.exports.Fragment,de=$`
   from {
   }
   20% {
@@ -57,7 +57,7 @@ import{s as r,W as se,j as F,U as z,r as b,R as ae,a as re}from"./vendor.9342536
   to {
     transform: translate(0px, 0px);
   }
-`,le=z`
+`,ue=$`
  from {  
  }
  25% {
@@ -65,22 +65,22 @@ import{s as r,W as se,j as F,U as z,r as b,R as ae,a as re}from"./vendor.9342536
  }
  50% {
  }
-`,de=z`
+`,be=$`
  from {
-  background-color: ${a.words_background_unused};
+  background-color: ${r.words_background_unused};
  }
  50% {
-  background-color: ${a.words_background_unused};
+  background-color: ${r.words_background_unused};
   transform: rotateX(90deg);
  }
  to {
 
  }
-`,ue=r.div`
+`,pe=t.div`
   flex-grow: 1;
   display: flex;
   align-items: center;
-`,be=r.div`
+`,fe=t.div`
   width: 350px;
   height: 420px;
   padding: 10px;
@@ -88,54 +88,135 @@ import{s as r,W as se,j as F,U as z,r as b,R as ae,a as re}from"./vendor.9342536
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`,pe=r.div`
+`,he=t.div`
   display: flex;
   width: 100%;
   justify-content: center;
   flex: 1;
   margin: 3px;
-  animation: ${o=>o.isInvalidAnswer?ce:"none"}
+  animation: ${o=>o.isInvalidAnswer?de:"none"}
     linear 0.25s 2;
-`,fe=r.div`
+`,me=t.div`
   position: relative;
   height: 100%;
   flex: 1;
 
   margin: 3px;
   border-radius: 3px;
-  background-color: ${o=>{switch(o.status){case"TBD":return a.words_background_unused;case"correct":return a.words_background_correct;case"near":return a.words_background_nearAnswer;case"wrong":return a.words_background_wrongAnswer}}};
+  background-color: ${o=>{switch(o.status){case"TBD":return r.words_background_unused;case"correct":return r.words_background_correct;case"near":return r.words_background_nearAnswer;case"wrong":return r.words_background_wrongAnswer}}};
   animation: ${o=>o.animate}
     linear 1s;
   &::before {
     content: "${o=>o.value?o.value:""}";
     font-size: 2rem;
-    color: ${a.font_main};
+    color: ${r.font_main};
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
-`,he=({currentMap:o,isSendingAnswer:d,currentRow:n,currentCol:m})=>{const e=o[0].map((l,i)=>s(pe,{isInvalidAnswer:d==="invalid"&&n===i,children:l.map((y,h)=>s(fe,{value:y,status:o[1][i][h],animate:n-1===i?de:m-1===h&&n===i?le:"none"},`${i}-${h}`))},i));return s(ue,{children:s(be,{children:e})})},me=r.div`
+`,ge=({currentMap:o,isSendingAnswer:d,currentRow:n,currentCol:h})=>{const a=o[0].map((l,c)=>s(he,{isInvalidAnswer:d==="invalid"&&n===c,children:l.map((g,m)=>s(me,{value:g,status:o[1][c][m],animate:n-1===c?be:h-1===m&&n===c?ue:"none"},`${c}-${m}`))},c));return s(pe,{children:s(fe,{children:a})})},ye=t.div`
   position: relative;
   text-align: center;
   width: 100%;
   font-size: 36px;
-  color: ${a.font_main};
-  border-bottom: ${a.background_sub} 2px solid;
-`,N=r.div`
+  color: ${r.font_main};
+  border-bottom: ${r.background_sub} 2px solid;
+`,U=t.div`
   cursor: pointer;
   position: absolute;
-  background-color: ${a.background_sub};
-  color: ${a.background_main};
+  background-color: ${r.background_sub};
+  color: ${r.background_main};
   font-size: 18px;
   padding: 4px;
   top: 50%;
   transform: translate(0%, -50%);
-`,ge=r(N)`
+`,ke=t(U)`
   left: 4%;
-`,ye=r(N)`
+`,we=t(U)`
   right: 4%;
-`,ke=({setIsShowingRule:o})=>f(me,{children:[s(ge,{onClick:()=>o(!0),children:"\u63D0\u793A"}),s(ye,{children:"\u8A2D\u5B9A"}),"Wordle22"]}),we=`aback
+`,ve=({setIsShowingPopUp:o})=>f(ye,{children:[s(ke,{onClick:()=>o("rule"),children:"\u63D0\u793A"}),s(we,{children:"\u8A2D\u5B9A"}),"Wordle22"]}),T=t.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+`,xe=t.a`
+  color: ${r.words_background_correct};
+  text-decoration: underline;
+`,Ae=t.p`
+  background-color: ${r.words_background_nearAnswer};
+  color: ${r.background_main};
+  padding: 8px;
+  user-select: text;
+`,Ce=t.span`
+  color: ${r.words_background_correct};
+`,Be=t.span`
+  color: ${r.words_background_nearAnswer};
+`,Fe=t.span`
+  color: ${r.words_background_unused};
+`,G=t.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  width: 300px;
+  height: 360px;
+  background-color: ${r.background_main};
+  color: ${r.font_main};
+  padding: 10px;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+`,L=t.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background-color: ${r.words_background_nearAnswer};
+`,M=t.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`,F=t.button`
+  font-size: 24px;
+  background-color: ${r.words_background_nearAnswer};
+  margin: 24px 8px;
+`,_e=t.input`
+  font-size: 24px;
+  height: 30px;
+  width: 200px;
+  background-color: ${r.background_sub};
+`,P=t.div`
+  text-align: left;
+`,ze=({setIsShowingPopUp:o,gameStatus:d,setGameStatus:n,setAnswer:h,setAnswerCode:a,answerCode:l,createRandomAnswer:c,getSpecifyAnswer:g})=>{const[m,y]=b.exports.useState(!1),[w,C]=b.exports.useState("");return s(T,{onClick:()=>d==="start"?o("none"):null,children:f(G,{onClick:k=>k.stopPropagation(),children:[d==="start"&&s(L,{onClick:()=>o("none"),children:"X"}),f(P,{children:[f("p",{children:["Wordle22 \u662F\u4EFF\u88FD"," ",s(xe,{href:"https://www.powerlanguage.co.uk/wordle/",target:"_blank",children:"Wordle"})," ","\u7684\u76CA\u667A\u904A\u6232\uFF0C\u6BCF\u6B21\u904A\u6232\u73A9\u5BB6\u6709\u516D\u6B21\u8F38\u5165\u6A5F\u6703\uFF0C\u76EE\u7684\u662F\u731C\u51FA\u7531\u4E94\u500B\u5B57\u6BCD\u7D44\u6210\u7684\u96A8\u6A5F\u7B54\u6848\u55AE\u5B57\u3002"]}),f("p",{children:["\u7576\u8F38\u5165\u4E86\u6B63\u78BA\u7684\u5B57\u6BCD\uFF0C\u4E14\u5B57\u6BCD\u4F4D\u7F6E\u6B63\u78BA\u6642\uFF0C\u683C\u5B50\u5C07\u6703\u8B8A\u6210",s(Ce,{children:"\u7DA0\u8272"}),"\u3002"]}),f("p",{children:["\u540C\u4E0A\uFF0C\u4F46\u5982\u679C\u5B57\u6BCD\u4F4D\u7F6E\u932F\u8AA4\u6642\uFF0C\u683C\u5B50\u6703\u8B8A\u6210",s(Be,{children:"\u9EC3\u8272"}),"\u3002"]}),f("p",{children:["\u5982\u679C\u5B57\u6BCD\u4E26\u6C92\u6709\u51FA\u73FE\u5728\u55AE\u5B57\u4E2D\uFF0C\u5247\u6703\u986F\u793A",s(Fe,{children:"\u7070\u8272"}),"\u3002"]})]}),s(()=>d==="start"?f(Ae,{children:["\u7576\u524D\u984C\u76EE\u78BC\uFF1A",l]}):m?f(M,{children:[s(_e,{value:w,onChange:k=>C(k.target.value),placeholder:"\u8CBC\u4E0A\u984C\u76EE\u78BC"}),s(F,{onClick:()=>{h(g(w)),n("start"),o("none"),y(!1)},children:"\u9001\u51FA"})]}):f(M,{children:[s(F,{onClick:()=>{h(c()),o("none"),n("start")},children:"\u96A8\u6A5F\u958B\u59CB"}),s(F,{onClick:()=>{y(!0)},children:"\u8F38\u5165\u984C\u76EE\u78BC"})]}),{})]})})},Se=({currentRow:o,setIsShowingPopUp:d})=>s(T,{onClick:()=>d("none"),children:f(G,{onClick:n=>n.stopPropagation(),children:[s(L,{onClick:()=>d("none"),children:"X"}),f(P,{children:["\u52DD\u5229\uFF01\u4F60\u7684\u731C\u6E2C\u6B21\u6578\uFF1A",o]}),s(F,{onClick:()=>{localStorage.setItem("status",null),window.location.reload()},children:"\u958B\u555F\u65B0\u904A\u6232"})]})}),Ee=t.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  padding-bottom: 6px;
+`,je=t.div`
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  min-height: 50px;
+  margin: 3px;
+`,I=t.button`
+  cursor: pointer;
+  height: 100%;
+  flex: 1;
+  margin: 3px;
+  border-radius: 3px;
+  background-color: ${o=>{switch(o.status){case"unused":return r.words_background_unused;case"correct":return r.words_background_correct;case"near":return r.words_background_nearAnswer;case"wrong":return r.words_background_wrongAnswer}}};
+  color: ${r.font_main};
+`,J=t(I)`
+  flex: 2;
+`,$e=({enterWord:o,submitGuess:d,deleteWord:n,currentKeyBoard:h,gameStatus:a})=>{const c=[["Q","W","E","R","T","Y","U","I","O","P"],["A","S","D","F","G","H","J","K","L"],["Z","X","C","V","B","N","M"]].map((g,m)=>f(je,{children:[m===2&&s(J,{status:"unused",onClick:()=>{d()},disabled:a==="over",children:"Enter"},"Enter"),g.map(y=>s(I,{status:h[y],value:y,onClick:()=>{o(y)},disabled:a==="over",children:y},y)),m===2&&s(J,{status:"unused",onClick:()=>n(),disabled:a==="over",children:"Back"},"Back")]},m));return s(Ee,{children:c})},V=`aback
 abase
 abate
 abaya
@@ -2633,106 +2714,11 @@ young
 yours
 youth
 yummy
-zones`,T=we.split(/\n/),U=r.div`
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99;
-`,ve=r.a`
-  color: ${a.words_background_correct};
-  text-decoration: underline;
-`,xe=r.p`
-  background-color: ${a.words_background_nearAnswer};
-  color: ${a.background_main};
-  padding: 8px;
-  user-select: text;
-`,Ae=r.span`
-  color: ${a.words_background_correct};
-`,Be=r.span`
-  color: ${a.words_background_nearAnswer};
-`,Ce=r.span`
-  color: ${a.words_background_unused};
-`,_e=r.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  position: fixed;
-  width: 300px;
-  height: 360px;
-  background-color: ${a.background_main};
-  color: ${a.font_main};
-  padding: 10px;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-`,O=r.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  background-color: ${a.words_background_nearAnswer};
-`,L=r.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`,j=r.button`
-  font-size: 24px;
-  background-color: ${a.words_background_nearAnswer};
-  margin: 24px 8px;
-`,Fe=r.input`
-  font-size: 24px;
-  height: 30px;
-  width: 200px;
-  background-color: ${a.background_sub};
-`,ze=r.div`
-  text-align: left;
-`,je=r.div``,Ee=r.div`
-  display: flex;
-  align-items: center;
-  position: fixed;
-  width: 300px;
-  height: 300px;
-  padding: 10px;
-  background-color: ${a.background_main};
-  color: ${a.font_main};
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-`,Se=({setIsShowingRule:o,isGameStart:d,setIsGameStart:n,setAnswer:m,setAnswerCode:e,answerCode:l})=>{const[i,y]=b.exports.useState(!1),[h,k]=b.exports.useState(""),x=()=>{const g=Math.floor(Math.random()*2499);return e(btoa(btoa(g))),T[g].toUpperCase().split("")},C=g=>{const w=atob(atob(g));if(w>0&&w<=2500)return e(g),T[w].toUpperCase().split("")};return s(U,{onClick:()=>d?o(!1):null,children:f(_e,{onClick:g=>g.stopPropagation(),children:[d&&s(O,{onClick:()=>o(!1),children:"X"}),f(ze,{children:[f("p",{children:["Wordle22 \u662F\u4EFF\u88FD"," ",s(ve,{href:"https://www.powerlanguage.co.uk/wordle/",target:"_blank",children:"Wordle"})," ","\u7684\u76CA\u667A\u904A\u6232\uFF0C\u6BCF\u6B21\u904A\u6232\u73A9\u5BB6\u6709\u516D\u6B21\u8F38\u5165\u6A5F\u6703\uFF0C\u76EE\u7684\u662F\u731C\u51FA\u7531\u4E94\u500B\u5B57\u6BCD\u7D44\u6210\u7684\u96A8\u6A5F\u7B54\u6848\u55AE\u5B57\u3002"]}),f("p",{children:["\u7576\u8F38\u5165\u4E86\u6B63\u78BA\u7684\u5B57\u6BCD\uFF0C\u4E14\u5B57\u6BCD\u4F4D\u7F6E\u6B63\u78BA\u6642\uFF0C\u683C\u5B50\u5C07\u6703\u8B8A\u6210",s(Ae,{children:"\u7DA0\u8272"}),"\u3002"]}),f("p",{children:["\u540C\u4E0A\uFF0C\u4F46\u5982\u679C\u5B57\u6BCD\u4F4D\u7F6E\u932F\u8AA4\u6642\uFF0C\u683C\u5B50\u6703\u8B8A\u6210",s(Be,{children:"\u9EC3\u8272"}),"\u3002"]}),f("p",{children:["\u5982\u679C\u5B57\u6BCD\u4E26\u6C92\u6709\u51FA\u73FE\u5728\u55AE\u5B57\u4E2D\uFF0C\u5247\u6703\u986F\u793A",s(Ce,{children:"\u7070\u8272"}),"\u3002"]})]}),s(()=>d?f(xe,{children:["\u7576\u524D\u984C\u76EE\u78BC\uFF1A",l]}):i?f(L,{children:[s(Fe,{value:h,onChange:g=>k(g.target.value),placeholder:"\u8CBC\u4E0A\u984C\u76EE\u78BC"}),s(j,{onClick:()=>{m(C(h)),n(!0),o(!1),y(!1)},children:"\u9001\u51FA"})]}):f(L,{children:[s(j,{onClick:()=>{m(x()),o(!1),n(!0)},children:"\u96A8\u6A5F\u958B\u59CB"}),s(j,{onClick:()=>{y(!0)},children:"\u8F38\u5165\u984C\u76EE\u78BC"})]}),{})]})})},$e=({currentRow:o,setIsShowingResult:d})=>s(U,{onClick:()=>d(!1),children:f(Ee,{onClick:n=>n.stopPropagation(),children:[s(O,{onClick:()=>d(!1),children:"X"}),f(je,{children:["\u4F60\u7684\u731C\u6E2C\u6B21\u6578\uFF1A",o]})]})}),De=r.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: 100%;
-  padding-bottom: 6px;
-`,Re=r.div`
-  display: flex;
-  justify-content: center;
-  flex: 1;
-  min-height: 50px;
-  margin: 3px;
-`,G=r.button`
-  cursor: pointer;
-  height: 100%;
-  flex: 1;
-  margin: 3px;
-  border-radius: 3px;
-  background-color: ${o=>{switch(o.status){case"unused":return a.words_background_unused;case"correct":return a.words_background_correct;case"near":return a.words_background_nearAnswer;case"wrong":return a.words_background_wrongAnswer}}};
-  color: ${a.font_main};
-`,M=r(G)`
-  flex: 2;
-`,Ke=({enterWord:o,submitGuess:d,deleteWord:n,currentKeyBoard:m,isGameOver:e})=>{console.log(e);const i=[["Q","W","E","R","T","Y","U","I","O","P"],["A","S","D","F","G","H","J","K","L"],["Z","X","C","V","B","N","M"]].map((y,h)=>f(Re,{children:[h===2&&s(M,{status:"unused",onClick:()=>{d()},disabled:e,children:"Enter"},"Enter"),y.map(k=>s(G,{status:m[k],value:k,onClick:()=>{o(k)},disabled:e,children:k},k)),h===2&&s(M,{status:"unused",onClick:()=>n(),disabled:e,children:"Back"},"Back")]},h));return s(De,{children:i})},We=r.div`
-  background-color: ${a.background_main};
+zones`,H=V.split(/\n/),De=t.div`
+  background-color: ${r.background_main};
   min-height: 100vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-`,qe=()=>{const o=[Array(6).fill(Array(5).fill("")),Array(6).fill(Array(5).fill("TBD"))],d={A:"unused",B:"unused",C:"unused",D:"unused",E:"unused",F:"unused",G:"unused",H:"unused",I:"unused",J:"unused",K:"unused",L:"unused",M:"unused",N:"unused",O:"unused",P:"unused",Q:"unused",R:"unused",S:"unused",T:"unused",U:"unused",V:"unused",W:"unused",X:"unused",Y:"unused",Z:"unused"},[n,m]=b.exports.useState(o),[e,l]=b.exports.useState(0),[i,y]=b.exports.useState(0),[h,k]=b.exports.useState(null),[x,C]=b.exports.useState(null),A=b.exports.useRef(!1),[g,w]=b.exports.useState("none"),[P,E]=b.exports.useState(!1),[V,S]=b.exports.useState(!0),[_,H]=b.exports.useState(!1),[$,I]=b.exports.useState(!1),[D,X]=b.exports.useState(d),R=b.exports.useRef();b.exports.useEffect(()=>{R.current.focus()},[_]),console.log("cheat: The answer is:",h),console.log("code",x);const K=()=>{i!==0&&(m([n[0].map((t,c)=>e!==c?t:t.map((u,v)=>i-1!==v?u:"")),n[1]]),y(i-1))},W=t=>{i!==5&&(m([n[0].map((c,u)=>e!==u?c:c.map((v,B)=>i!==B?v:t)),n[1]]),y(i+1))},J=t=>{let c="";for(let u of t)c+=u.toLowerCase();return answerLibrary.indexOf(c)!==-1},q=()=>{n[0][e][4]!==""&&(J(n[0][e])?(w("valid"),Q(n[0][e]),l(e+1),y(0)):w("invalid"),setTimeout(()=>{w("none")},1500))},Z=t=>{const c=D;for(let u of t)c[u[0]]!=="correct"&&(c[u[0]]=u[1]);X(c)},Q=t=>{const c=JSON.parse(JSON.stringify(h)),u=Array(5).fill("wrong"),v=[];let B=0;for(let p in t)c.indexOf(t[p])!==-1&&h[p]===t[p]&&(u[p]="correct",c.splice(p,1,""),B++);(B===5||e>5)&&(E(!0),I(!0));for(let p in t)c.indexOf(t[p])!==-1&&u[p]!=="correct"&&(u[p]="near",c.splice(c.indexOf(t[p]),1,""));for(let p in u)v.push([t[p],u[p]]);Z(v),m([n[0],n[1].map((p,ee)=>e!==ee?p:u)])},Y=t=>{const c=/[a-z]|[A-Z]/;t.key.length===1&&c.test(t.key)&&!$&&_?W(t.key.toUpperCase()):t.key==="Enter"?q():t.key==="Backspace"&&K()};return f(We,{onKeyDown:t=>{A.current||Y(t),A.current=!0},onKeyUp:()=>A.current=!1,tabIndex:-1,ref:R,children:[V&&s(Se,{setIsShowingRule:S,isGameStart:_,setIsGameStart:H,setAnswer:k,setAnswerCode:C,answerCode:x}),P&&s($e,{setIsShowingResult:E,currentRow:e}),s(ke,{setIsShowingRule:S}),g==="invalid"&&s(te,{children:"\u984C\u5EAB\u4E2D\u4E0D\u5B58\u5728\u6B64\u5B57"}),s(he,{currentMap:n,isSendingAnswer:g,currentRow:e,currentCol:i}),s(Ke,{deleteWord:K,enterWord:W,submitGuess:q,currentKeyBoard:D,isGameOver:$})]})};function Ne(){return s(ie,{children:f("div",{className:"container",children:[s(ne,{}),s(qe,{})]})})}ae.render(s(re.StrictMode,{children:s(Ne,{})}),document.getElementById("root"));
+`,Ke=()=>{const o=[Array(6).fill(Array(5).fill("")),Array(6).fill(Array(5).fill("TBD"))],d={A:"unused",B:"unused",C:"unused",D:"unused",E:"unused",F:"unused",G:"unused",H:"unused",I:"unused",J:"unused",K:"unused",L:"unused",M:"unused",N:"unused",O:"unused",P:"unused",Q:"unused",R:"unused",S:"unused",T:"unused",U:"unused",V:"unused",W:"unused",X:"unused",Y:"unused",Z:"unused"},[n,h]=b.exports.useState(o),[a,l]=b.exports.useState(0),[c,g]=b.exports.useState(0),[m,y]=b.exports.useState(d),[w,C]=b.exports.useState(null),[_,k]=b.exports.useState(null),[D,z]=b.exports.useState("none"),[K,A]=b.exports.useState("rule"),[v,S]=b.exports.useState("setting"),E=b.exports.useRef(!1),W=b.exports.useRef();b.exports.useEffect(()=>{const e=localStorage.getItem("status");e!=="null"&&e&&Z(JSON.parse(e))},[]),b.exports.useEffect(()=>{W.current.focus()},[v]),b.exports.useEffect(()=>{const e=localStorage.getItem("status");if(e!=="null"&&e){const i={map:n,row:a,col:c,answerCode:_,gameStatus:v};localStorage.setItem("status",JSON.stringify(i))}},[n,v]),console.log("cheat: The answer is:",w);const X=()=>{const e=Math.floor(Math.random()*2499);return k(btoa(btoa(e))),H[e].toUpperCase().split("")},R=e=>{const i=atob(atob(e));if(i>0&&i<=2500)return k(e),H[i].toUpperCase().split("")},Z=e=>{h(e.map),l(e.row),g(e.col),k(e.answerCode),S(e.gameStatus),C(R(e.answerCode)),e.gameStatus==="over"&&A("result")},N=()=>{c!==0&&(h([n[0].map((e,i)=>a!==i?e:e.map((u,x)=>c-1!==x?u:"")),n[1]]),g(c-1))},q=e=>{c!==5&&(h([n[0].map((i,u)=>a!==u?i:i.map((x,B)=>c!==B?x:e)),n[1]]),g(c+1))},Q=e=>{let i="";for(let u of e)i+=u.toLowerCase();return V.indexOf(i)!==-1},O=()=>{n[0][a][4]!==""&&(Q(n[0][a])?(z("valid"),ee(n[0][a]),l(a+1),g(0)):z("invalid"),setTimeout(()=>{z("none")},1500))},Y=e=>{const i=m;for(let u of e)i[u[0]]!=="correct"&&(i[u[0]]=u[1]);y(i)},ee=e=>{const i=JSON.parse(JSON.stringify(w)),u=Array(5).fill("wrong"),x=[];let B=0;for(let p in e)i.indexOf(e[p])!==-1&&w[p]===e[p]&&(u[p]="correct",i.splice(p,1,""),B++);(B===5||a>5)&&(A("result"),S("over"));for(let p in e)i.indexOf(e[p])!==-1&&u[p]!=="correct"&&(u[p]="near",i.splice(i.indexOf(e[p]),1,""));for(let p in u)x.push([e[p],u[p]]);Y(x),h([n[0],n[1].map((p,ae)=>a!==ae?p:u)])},se=e=>{const i=/[a-z]|[A-Z]/;e.key.length===1&&i.test(e.key)&&v==="start"?q(e.key.toUpperCase()):e.key==="Enter"?O():e.key==="Backspace"&&N()};return f(De,{onKeyDown:e=>{E.current||se(e),E.current=!0},onKeyUp:()=>E.current=!1,tabIndex:-1,ref:W,children:[K==="rule"&&s(ze,{setIsShowingPopUp:A,gameStatus:v,setGameStatus:S,setAnswer:C,setAnswerCode:k,answerCode:_,createRandomAnswer:X,getSpecifyAnswer:R}),K==="result"&&s(Se,{setIsShowingPopUp:A,currentRow:a}),s(ve,{setIsShowingPopUp:A}),D==="invalid"&&s(ie,{children:"\u984C\u5EAB\u4E2D\u4E0D\u5B58\u5728\u6B64\u5B57"}),s(ge,{currentMap:n,isSendingAnswer:D,currentRow:a,currentCol:c}),s($e,{deleteWord:N,enterWord:q,submitGuess:O,currentKeyBoard:m,gameStatus:v})]})};function We(){return s(le,{children:f("div",{className:"container",children:[s(ce,{}),s(Ke,{})]})})}oe.render(s(te.StrictMode,{children:s(We,{})}),document.getElementById("root"));
