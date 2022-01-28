@@ -2500,4 +2500,4 @@ zones`
 
 const libraryArray = answerLibrary.split(/\n/)
 
-export { libraryArray }
+export { libraryArray, answerLibrary }

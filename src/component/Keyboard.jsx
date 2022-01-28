@@ -48,9 +48,8 @@ const KeyBoard = ({
   submitGuess,
   deleteWord,
   currentKeyBoard,
-  isGameOver,
+  gameStatus,
 }) => {
-  console.log(isGameOver)
   const keyboardArray = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
@@ -66,7 +65,7 @@ const KeyBoard = ({
             onClick={() => {
               submitGuess()
             }}
-            disabled={isGameOver}
+            disabled={gameStatus === "over"}
           >
             Enter
           </KeyBoardBigKey>
@@ -80,7 +79,7 @@ const KeyBoard = ({
               onClick={() => {
                 enterWord(key)
               }}
-              disabled={isGameOver}
+              disabled={gameStatus === "over"}
             >
               {key}
             </KeyBoardKey>
@@ -91,7 +90,7 @@ const KeyBoard = ({
             status={"unused"}
             key={"Back"}
             onClick={() => deleteWord()}
-            disabled={isGameOver}
+            disabled={gameStatus === "over"}
           >
             Back
           </KeyBoardBigKey>
