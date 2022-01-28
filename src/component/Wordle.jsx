@@ -59,10 +59,10 @@ const Wordle = () => {
   const [isShowingPopUp, setIsShowingPopUp] = useState("rule")
   const [gameStatus, setGameStatus] = useState("setting")
   const isHandlingKeyDown = useRef(false)
-  const wordleRef = useRef() // Focus 用
+  const wordleRef = useRef()
   useEffect(() => {
     const localStatus = localStorage.getItem("status")
-    if (localStatus !== "null" && localStatus) {
+    if (localStatus) {
       renderLocalStatus(JSON.parse(localStatus))
     }
   }, [])
@@ -70,19 +70,15 @@ const Wordle = () => {
     wordleRef.current.focus()
   }, [gameStatus])
   useEffect(() => {
-    const localStatus = localStorage.getItem("status")
-    if (localStatus !== "null" && localStatus) {
-      const localStatus = {
-        map: currentMap,
-        row: currentRow,
-        col: currentCol,
-        answerCode: answerCode,
-        gameStatus: gameStatus,
-      }
-      localStorage.setItem("status", JSON.stringify(localStatus))
+    const localStatus = {
+      map: currentMap,
+      row: currentRow,
+      col: currentCol,
+      answerCode: answerCode,
+      gameStatus: gameStatus,
     }
+    localStorage.setItem("status", JSON.stringify(localStatus))
   }, [currentMap, gameStatus])
-  console.log("cheat: The answer is:", answer)
   const createRandomAnswer = () => {
     const answerIndex = Math.floor(Math.random() * 2499)
     setAnswerCode(btoa(btoa(answerIndex)))

@@ -184,7 +184,7 @@ const ResultPopUpBox = ({ currentRow, setIsShowingPopUp }) => {
         <PopUpText>勝利！你的猜測次數：{currentRow}</PopUpText>
         <StartGameBTN
           onClick={() => {
-            localStorage.setItem("status", null)
+            localStorage.clear()
             window.location.reload()
           }}
         >
